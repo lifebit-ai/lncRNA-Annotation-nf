@@ -1,6 +1,12 @@
 FROM ubuntu:12.04
 
-MAINTAINER Paolo Di Tommaso <paolo.ditommaso@gmail.com>
+FROM ubuntu:14.04
+RUN  apt-get update \
+  && apt-get install -y wget \
+  && rm -rf /var/lib/apt/lists/*
+
+
+MAINTAINER Evan Floden <evanfloden@gmail.com>
 		
 #
 # Install STAR
