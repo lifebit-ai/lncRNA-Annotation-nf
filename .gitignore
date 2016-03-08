@@ -1,0 +1,5 @@
+data/
+results/
+work/
+.nextflow.log*
+.nextflow.history
