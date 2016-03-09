@@ -33,6 +33,7 @@ params.genome        = "$baseDir/tutorial/genome/Scrofa10.2.chr1.fa"
 params.annotation    = "$baseDir/tutorial/annotation/Sus_scrofa.Sscrofa10.2.62.gtf"
 params.reads         = "$baseDir/tutorial/reads/*_{1,2}.fastq.gz"
 params.overhang      = '100'
+params.threads       = '1'
 params.output        = "results/"
 
 
@@ -43,6 +44,7 @@ log.info "genome                 : ${params.genome}"
 log.info "annotation             : ${params.annotation}"
 log.info "reads                  : ${params.reads}"
 log.info "STAR overhang          : ${params.overhang}"
+log.info "STAR threads           : ${params.threads}"
 log.info "output                 : ${params.output}"
 log.info "\n"
 
@@ -90,7 +92,7 @@ process index {
     //
     """
         mkdir STARgenome
-        STAR --runThreadN 12 --runMode genomeGenerate --genomeDir STARgenome \
+        STAR --runThreadN ${params.threads} --runMode genomeGenerate --genomeDir STARgenome \
              --genomeFastaFiles ${genomeFile} --sjdbGTFfile ${annotationFile} \
              --sjdbOverhang ${params.overhang} --outFileNamePrefix STARgenome
     """
@@ -115,7 +117,7 @@ process mapping {
         STAR --genomeDir ${STARgenome} --readFilesIn ${reads} --readFilesCommand zcat \
              --outFilterType BySJout --outSAMunmapped Within --outSAMtype BAM SortedByCoordinate \
              --outSAMattrIHstart 0 --outFilterIntronMotifs RemoveNoncanonical \
-             --runThreadN 12 --quantMode TranscriptomeSAM --outWigType bedGraph --outWigStrand Stranded \
+             --runThreadN ${params.threads} --quantMode TranscriptomeSAM --outWigType bedGraph --outWigStrand Stranded \
              --outFileNamePrefix ${name}
         mkdir ${name}
         mv ${name}Aligned* ${name}/.
