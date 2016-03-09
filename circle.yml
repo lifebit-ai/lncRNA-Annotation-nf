@@ -4,8 +4,22 @@ machine:
   services:
     - docker
     
+
+dependencies:
+  override:
+    # Install git-lfs
+    - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+    - sudo apt-get install git-lfs=1.1.0
+    - ssh git@github.com git-lfs-authenticate skptic/lncRNA-Annotation-nf.git download
+
 test:
   override:
+
+
+
+
     - curl -fsSL get.nextflow.io | bash
     - ./nextflow run . -with-docker
+
+
 
