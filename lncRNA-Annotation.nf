@@ -94,8 +94,7 @@ process index {
         mkdir STARgenome
         STAR --runThreadN ${params.threads} --runMode genomeGenerate --genomeDir STARgenome \
              --genomeFastaFiles ${genomeFile} --sjdbGTFfile ${annotationFile} \
-             --sjdbOverhang ${params.overhang} --outFileNamePrefix STARgenome \
-             --genomeSAindexNbases 3
+             --sjdbOverhang ${params.overhang} --outFileNamePrefix STARgenome
     """
 }
 
