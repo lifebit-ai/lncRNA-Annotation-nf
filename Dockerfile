@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM debian:latest
 
 MAINTAINER Evan Floden <evanfloden@gmail.com>
 
@@ -7,10 +7,9 @@ RUN  apt-get update \
   curl \
   wget \
   libcurl4-gnutls-dev \
-  build-essential
-
-
-MAINTAINER Evan Floden <evanfloden@gmail.com>
+  build-essential \
+  vim \
+  libz-dev
 
 #
 # Install STAR
