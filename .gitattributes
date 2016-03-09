@@ -1,0 +1,8 @@
+tutorial/genome/Sus_scrofa.Sscrofa10.2.dna.fa filter=lfs diff=lfs merge=lfs -text
+tutorial/annotation/Sus_scrofa.Sscrofa10.2.83.gtf filter=lfs diff=lfs merge=lfs -text
+tutorial/reads/agPI-BRfl-reduced_1.fastq.gz filter=lfs diff=lfs merge=lfs -text
+tutorial/reads/agPI-BRfl-reduced_2.fastq.gz filter=lfs diff=lfs merge=lfs -text
+tutorial/reads/agPI-LI-reduced_1.fastq.gz filter=lfs diff=lfs merge=lfs -text
+tutorial/reads/agPI-LI-reduced_2.fastq.gz filter=lfs diff=lfs merge=lfs -text
+tutorial/reads/agPI-MU-reduced_1.fastq.gz filter=lfs diff=lfs merge=lfs -text
+tutorial/reads/agPI-MU-reduced_2.fastq.gz filter=lfs diff=lfs merge=lfs -text

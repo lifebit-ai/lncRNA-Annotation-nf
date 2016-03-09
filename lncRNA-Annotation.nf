@@ -29,8 +29,8 @@
 
 
 params.name          = "lncRNA Annotation from Pig RNA-Seq"
-params.genome        = "$baseDir/tutorial/genome/Scrofa10.2.chr1.fa"
-params.annotation    = "$baseDir/tutorial/annotation/Sus_scrofa.Sscrofa10.2.62.gtf"
+params.genome        = "$baseDir/tutorial/genome/Sus_scrofa.Sscrofa10.2.dna.fa"
+params.annotation    = "$baseDir/tutorial/annotation/Sus_scrofa.Sscrofa10.2.83.gtf"
 params.reads         = "$baseDir/tutorial/reads/*_{1,2}.fastq.gz"
 params.overhang      = '99'
 params.threads       = '1'
@@ -94,7 +94,7 @@ process index {
         mkdir STARgenome
         STAR --runThreadN ${params.threads} --runMode genomeGenerate --genomeDir STARgenome \
              --genomeFastaFiles ${genomeFile} --sjdbGTFfile ${annotationFile} \
-             --sjdbOverhang ${params.overhang} --outFileNamePrefix STARgenome
+             --sjdbOverhang ${params.overhang} --outFileNamePrefix STARgenome \
     """
 }
 
