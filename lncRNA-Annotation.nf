@@ -29,8 +29,8 @@
 
 
 params.name          = "lncRNA Annotation from Pig RNA-Seq"
-params.genome        = "$baseDir/tutorial/genome/Sus_scrofa.Sscrofa10.2.dna.fa"
-params.annotation    = "$baseDir/tutorial/annotation/Sus_scrofa.Sscrofa10.2.83.gtf"
+params.genome        = "$baseDir/tutorial/genome/NEW_susScr102vega.fa"
+params.annotation    = "$baseDir/tutorial/annotation/NEW_ensembl.83.vega.62.gtf"
 params.reads         = "$baseDir/tutorial/reads/*_{1,2}.fastq.gz"
 params.overhang      = '99'
 params.threads       = '1'
