@@ -28,13 +28,13 @@
  */
 
 
-params.name          = "lncRNA Annotation from Pig RNA-Seq"
-params.genome        = "$baseDir/tutorial/genome/NEW_susScr102vega.fa"
-params.annotation    = "$baseDir/tutorial/annotation/NEW_ensembl.83.vega.62.gtf"
-params.reads         = "$baseDir/tutorial/reads/*_{1,2}.fastq.gz"
-params.overhang      = '99'
-params.threads       = '1'
-params.output        = "results/"
+params.name          ="lncRNA Annotation from Pig RNA-Seq"
+params.genome        ="$baseDir/tutorial/genome/NEW_susScr102vega.fa"
+params.annotation    ="$baseDir/tutorial/annotation/NEW_ensembl.83.vega.62.gtf"
+params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq.gz"
+params.overhang      ='99'
+params.threads       ='1'
+params.output        ="results/"
 
 
 log.info "lncRNA Annotation - N F  ~  version 0.1"
@@ -53,7 +53,7 @@ log.info "\n"
  * Input parameters validation
  */
 
-genomeFile              = file(params.genome)
+genomeFile             = file(params.genome)
 annotationFile         = file(params.annotation) 
 
 /*
@@ -110,7 +110,7 @@ process mapping {
     set val(name), file(reads:'*') from read_files
 
     output:
-    file "STAR_${name}" into STARmappedReads 
+    set val(name), file("STAR_${name}") into STARmappedReads 
 
     script:
     //
@@ -131,13 +131,12 @@ process mapping {
    
 }
 
+
 process cufflinks {
-    tag "reads: $name"
 
     input:
     file annotationFile
-    set val(name), file(reads:'*') from read_files
-    file STAR_alignment from STARmappedReads
+    set val(name), file(STAR_alignment) from STARmappedReads
     file genomeLength from genomeLengths.first()
 
     output:
@@ -152,7 +151,7 @@ process cufflinks {
         mkdir CUFF_${name}
         cufflinks -p ${params.threads} -g ${annotationFile} -o CUFF_${name}  \
             --overlap-radius 5 --library-type fr-firststrand \
-            ${STAR_alignment}/Aligned.sortedByCoord.out.bam
+            ${STAR_alignment}/${name}Aligned.sortedByCoord.out.bam
 
         # Post-process: remove exons exceeding length of chromosome/scaffold
         cuff=CUFF_${name}/transcripts.gtf
