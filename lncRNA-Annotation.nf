@@ -44,7 +44,7 @@ log.info "genome                 : ${params.genome}"
 log.info "annotation             : ${params.annotation}"
 log.info "reads                  : ${params.reads}"
 log.info "STAR overhang          : ${params.overhang}"
-log.info "STAR threads           : ${params.threads}"
+log.info "threads/CPUs           : ${params.threads}"
 log.info "output                 : ${params.output}"
 log.info "\n"
 
@@ -56,12 +56,15 @@ log.info "\n"
 genomeFile             = file(params.genome)
 annotationFile         = file(params.annotation) 
 
+
 /*
  * validate input files/
  */
+
 if( !annotationFile.exists() ) exit 1, "Missing annotation file: ${annotationFile}"
 
 if( !genomeFile.exists() ) exit 1, "Missing genome directory: ${genomeFile}"
+
 
 /*
  * Create a channel for read files 
@@ -89,15 +92,20 @@ process index {
 
     script:
     //
-    // STAR Generate Index and create genome length file
+    // STAR Generate Index and Create Genome Length File
     //
     """
         mkdir STARgenome
-        STAR --runThreadN ${params.threads} --runMode genomeGenerate --genomeDir STARgenome \
-             --genomeFastaFiles ${genomeFile} --sjdbGTFfile ${annotationFile} \
-             --sjdbOverhang ${params.overhang} --outFileNamePrefix STARgenome \
+        STAR --runThreadN ${params.threads} \
+             --runMode genomeGenerate \
+             --genomeDir STARgenome \
+             --genomeFastaFiles ${genomeFile} \
+             --sjdbGTFfile ${annotationFile} \
+             --sjdbOverhang ${params.overhang} \
+             --outFileNamePrefix STARgenome
 
         fastalength ${genomeFile} > 'genome.length'
+
     """
 }
 
@@ -117,11 +125,20 @@ process mapping {
     // STAR Mapper
     //
     """
-        STAR --genomeDir ${STARgenome} --readFilesIn ${reads} --readFilesCommand zcat \
-             --outFilterType BySJout --outSAMunmapped Within --outSAMtype BAM SortedByCoordinate \
-             --outSAMattrIHstart 0 --outFilterIntronMotifs RemoveNoncanonical \
-             --runThreadN ${params.threads} --quantMode TranscriptomeSAM --outWigType bedGraph --outWigStrand Stranded \
+        STAR --genomeDir ${STARgenome} \
+             --readFilesIn ${reads} \
+             --readFilesCommand zcat \
+             --outFilterType BySJout \
+             --outSAMunmapped Within \
+             --outSAMtype BAM SortedByCoordinate \
+             --outSAMattrIHstart 0 \
+             --outFilterIntronMotifs RemoveNoncanonical \
+             --runThreadN ${params.threads} 
+             --quantMode TranscriptomeSAM \
+             --outWigType bedGraph \
+             --outWigStrand Stranded \
              --outFileNamePrefix ${name}
+        
         mkdir STAR_${name}
         mv ${name}Aligned* STAR_${name}/.
         mv ${name}Signal* STAR_${name}/.
@@ -137,35 +154,52 @@ process cufflinks {
     input:
     file annotationFile
     set val(name), file(STAR_alignment) from STARmappedReads
-    file genomeLength from genomeLengths.first()
 
     output:
-    file "CUFF_${name}" into cufflinksTranscriptsDir
-    file "CUFF_${name}/${name}_cufflinks_ok.gtf" into cufflinksTranscripts
+    set val(name), file("CUFF_${name}") into cufflinksTranscripts_to_pp, cufflinksTranscripts_to_cuffmerge
 
     script:
     //
     // Cufflinks
     //
     """
-        # Cufflinks
         mkdir CUFF_${name}
-        cufflinks -p ${params.threads} -g ${annotationFile} -o CUFF_${name}  \
-            --overlap-radius 5 --library-type fr-firststrand \
-            ${STAR_alignment}/${name}Aligned.sortedByCoord.out.bam
+        cufflinks -p ${params.threads} \
+                  -g ${annotationFile} \
+                  -o CUFF_${name} \
+                  --overlap-radius 5 \
+                  --library-type fr-firststrand \
+                  ${STAR_alignment}/${name}Aligned.sortedByCoord.out.bam
 
-        # Post-process: remove exons exceeding length of chromosome/scaffold
-        cuff=CUFF_${name}/transcripts.gtf
+    """
+}
+
+process cufflinks_postprocess {
+
+    input:
+    set val(name), file(CUFFLINKS_transcripts) from cufflinksTranscripts_to_pp
+    file genomeLength from genomeLengths.first()
+
+    output:
+    file "${name}_cufflinks_ok.gtf" into cufflinksTranscripts_pp
+
+    script:
+    //
+    // Post Process Cufflinks to remove exons exceeding length of chromosome/scaffold
+    //
+    """ 
+        cuff=${CUFFLINKS_transcripts}/transcripts.gtf
+
         awk -v fileRef=${genomeLength} 'BEGIN{while (getline < fileRef >0){lg[\$2]=\$1}} \
             {nbex[\$12]++; line[\$12,nbex[\$12]]=\$0}\$4<1||\$5>lg[\$1]{ko[\$12]=1}END\
             {for(t in nbex){if(ko[t]!=1){for(k=1; k<=nbex[t]; k++){print line[t,k]}}}}'\
-            \$cuff | awk -f ${baseDir}/bin/gff2gff.awk > cufflinks_ok.gtf
-        cp cufflinks_ok.gtf CUFF_${name}/${name}_cufflinks_ok.gtf
-        """
+            \$cuff | awk -f ${baseDir}/bin/gff2gff.awk > ${name}_cufflinks_ok.gtf
+    """
 }
 
-cufflinksTranscripts
-  .collectFile(name: 'gtf_filenames.txt')
+
+cufflinksTranscripts_pp
+  .collectFile () { file ->  ['gtf_filenames.txt', file.name + '\n' ] }
   .set { GTFfilenames }
 
 
@@ -174,7 +208,8 @@ process cuffmerge {
     input:
     file annotationFile
     file genomeFile
-    file gtf_filelist from GTFfilenames
+    file gtf_filenames from GTFfilenames
+    set val(name), file(CUFFLINKS_transcripts) from cufflinksTranscripts_to_cuffmerge
 
     output:
     file "CUFFMERGE" into cuffmergeTranscripts
@@ -185,12 +220,9 @@ process cuffmerge {
     //
     """
     mkdir CUFFMERGE
-    cuffmerge -o CUFFMERGE -g ${annotationFile}  -s ${genomeFile} -p ${params.threads} ${gtf_filelist}
+    cuffmerge -o CUFFMERGE -g ${annotationFile}  -s ${genomeFile} -p ${params.threads} ${gtf_filenames}
     """
 }
-
-
-####
 
 
 // ===================== UTILITY FUNCTIONS ============================
