@@ -148,6 +148,7 @@ process cufflinks {
     // Cufflinks
     //
     """
+        # Cufflinks
         mkdir CUFF_${name}
         cufflinks -p ${params.threads} -g ${annotationFile} -o CUFF_${name}  \
             --overlap-radius 5 --library-type fr-firststrand \
@@ -155,13 +156,11 @@ process cufflinks {
 
         # Post-process: remove exons exceeding length of chromosome/scaffold
         cuff=CUFF_${name}/transcripts.gtf
-        cd CUFF_${name}
         awk -v fileRef=${genomeLength} 'BEGIN{while (getline < fileRef >0){lg[\$2]=\$1}} \
             {nbex[\$12]++; line[\$12,nbex[\$12]]=\$0}\$4<1||\$5>lg[\$1]{ko[\$12]=1}END\
             {for(t in nbex){if(ko[t]!=1){for(k=1; k<=nbex[t]; k++){print line[t,k]}}}}'\
-            \$cuff | awk -f gff2gff.awk > cufflinks_ok.gtf
-            done
-        cp cufflink_ok.gtf CUFF_${name}/.
+            \$cuff | awk -f ${baseDir}/bin/gff2gff.awk > cufflinks_ok.gtf
+        cp cufflinks_ok.gtf CUFF_${name}/.
         """
 }
 
