@@ -62,7 +62,6 @@ annotationFile         = file(params.annotation)
  */
 
 if( !annotationFile.exists() ) exit 1, "Missing annotation file: ${annotationFile}"
-
 if( !genomeFile.exists() ) exit 1, "Missing genome directory: ${genomeFile}"
 
 
@@ -92,23 +91,17 @@ process index {
 
     script:
     //
-    // STAR Generate Index and Create Genome Length File
+    // STAR Generate Index and create genome length file
     //
     """
         mkdir STARgenome
-        STAR --runThreadN ${params.threads} \
-             --runMode genomeGenerate \
-             --genomeDir STARgenome \
-             --genomeFastaFiles ${genomeFile} \
-             --sjdbGTFfile ${annotationFile} \
-             --sjdbOverhang ${params.overhang} \
-             --outFileNamePrefix STARgenome
+        STAR --runThreadN ${params.threads} --runMode genomeGenerate --genomeDir STARgenome \
+             --genomeFastaFiles ${genomeFile} --sjdbGTFfile ${annotationFile} \
+             --sjdbOverhang ${params.overhang} --outFileNamePrefix STARgenome \
 
         fastalength ${genomeFile} > 'genome.length'
-
     """
 }
-
 
 process mapping {
     tag "reads: $name"
@@ -133,7 +126,7 @@ process mapping {
              --outSAMtype BAM SortedByCoordinate \
              --outSAMattrIHstart 0 \
              --outFilterIntronMotifs RemoveNoncanonical \
-             --runThreadN ${params.threads} 
+             --runThreadN ${params.threads} \
              --quantMode TranscriptomeSAM \
              --outWigType bedGraph \
              --outWigStrand Stranded \
