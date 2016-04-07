@@ -240,7 +240,7 @@ process FEELnc_filter{
                      --mRNAfile=${annotationFile} \
                      --biotype=transcript_biotype=protein_coding \
                      --monoex=-1 \
-                     --proc={params.threads} \
+                     --proc=10 \
                      > FEELnc_filter/merged_filtered.gtf
     """
 
@@ -271,7 +271,7 @@ process FEELnc_codpot{
                       --numtx=10000,10000 \
                       --outdir=intergenic_0.99_Mode \
                       --spethres=0.99,0.99 \
-                      --proc={params.threads} \
+                      --proc=10 \
                       --keeptmp
     """
 
