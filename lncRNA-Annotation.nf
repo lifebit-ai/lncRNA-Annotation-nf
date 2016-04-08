@@ -292,10 +292,8 @@ process FEELnc_classifier {
     //
 
     """
-    mkdir intergenic_0.99_Mode
-
-    FEELnc_classifier.pl  --infile=${FEELnc_codpot}  \
-                          -a =${annotationFile} \
+    FEELnc_classifier.pl  -i ${intergenic}/merged_filtered.gtf.lncRNA.gtf  \
+                          -a ${annotationFile} \
                           > lncRNA_classes.txt
     """
 
