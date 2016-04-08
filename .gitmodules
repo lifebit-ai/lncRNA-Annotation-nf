@@ -1,0 +1,3 @@
+[submodule "FEELnc"]
+	path = FEELnc
+	url = https://github.com/tderrien/FEELnc.git
