@@ -293,7 +293,7 @@ process FEELnc_classifier {
 
     """
     FEELnc_classifier.pl  -i ${intergenic}/merged_filtered.gtf.lncRNA.gtf  \
-                          -a ${annotationFile} \
+                          -a ${intergenic}/merged_filtered.gtf.mRNA.gtf \
                           > lncRNA_classes.txt
     """
 
