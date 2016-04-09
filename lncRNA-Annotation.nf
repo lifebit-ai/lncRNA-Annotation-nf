@@ -236,11 +236,11 @@ process FEELnc_filter{
     """
     mkdir FEELnc_filter
 
-    FEELnc_filter.pl --infile=${cuffmergeDir}/merged.gtf \
-                     --mRNAfile=${annotationFile} \
-                     --biotype=transcript_biotype=protein_coding \
-                     --monoex=-1 \
-                     --proc=10 \
+    FEELnc_filter.pl --infile ${cuffmergeDir}/merged.gtf \
+                     --mRNAfile ${annotationFile} \
+                     --biotype transcript_biotype=protein_coding \
+                     --monoex -1 \
+                     --proc 10 \
                      > FEELnc_filter/merged_filtered.gtf
     """
 
@@ -293,7 +293,7 @@ process FEELnc_classifier {
 
     """
     FEELnc_classifier.pl  -i ${intergenic}/merged_filtered.gtf.lncRNA.gtf  \
-                          -a ${intergenic}/merged_filtered.gtf.mRNA.gtf \
+                          -a ${annotationFile} \
                           > lncRNA_classes.txt
     """
 
