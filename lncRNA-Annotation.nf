@@ -21,14 +21,14 @@
  * Main lncRNA-Annotation-NF pipeline script
  *
  * @authors
- * Sarah Djebali
- * Thomas Derrien
+ * Sarah Djebali <sarah.djebali-quelen@toulouse.inra.fr>
+ * Thomas Derrien <thomas.derrien@univ-rennes1.fr>
  * Paolo Di Tommaso <paolo.ditommaso@gmail.com>
  * Evan Floden <evanfloden@gmail.com> 
  */
 
 
-params.name          ="lncRNA Annotation from Pig RNA-Seq"
+params.name          ="lncRNA_Pig_RNA-Seq"
 params.genome        ="$baseDir/tutorial/genome/NEW_susScr102vega.fa"
 params.annotation    ="$baseDir/tutorial/annotation/NEW_ensembl.83.vega.62.gtf"
 params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq.gz"
@@ -95,9 +95,13 @@ process index {
     //
     """
         mkdir STARgenome
-        STAR --runThreadN ${params.threads} --runMode genomeGenerate --genomeDir STARgenome \
-             --genomeFastaFiles ${genomeFile} --sjdbGTFfile ${annotationFile} \
-             --sjdbOverhang ${params.overhang} --outFileNamePrefix STARgenome \
+        STAR --runThreadN ${params.threads} \
+             --runMode genomeGenerate \
+             --genomeDir STARgenome \
+             --genomeFastaFiles ${genomeFile} \
+             --sjdbGTFfile ${annotationFile} \
+             --sjdbOverhang ${params.overhang} \
+             --outFileNamePrefix STARgenome
 
         fastalength ${genomeFile} > 'genome.length'
     """
@@ -174,7 +178,7 @@ process cufflinks_postprocess {
     file genomeLength from genomeLengths.first()
 
     output:
-    file "${name}_cufflinks_ok.gtf" into cufflinksTranscripts_pp_gtf
+    file "${name}_cufflinks_ok.gtf" into cufflinksTranscripts_postprocess
 
     script:
     //
@@ -190,9 +194,11 @@ process cufflinks_postprocess {
     """
 }
 
-cufflinksTranscripts_pp_gtf.into { cufflinksTranscripts_pp_gtfA; cufflinksTranscripts_pp_gtfB }
 
-cufflinksTranscripts_pp_gtfA
+//
+// Create a file 'gtf_filenames' containing the filenames of each post processes cufflinks gtf
+//
+cufflinksTranscripts_postprocess
   .collectFile () { file ->  ['gtf_filenames.txt', file.name + '\n' ] }
   .set { GTFfilenames }
 
@@ -203,7 +209,7 @@ process cuffmerge {
     file annotationFile
     file genomeFile
     file gtf_filenames from GTFfilenames
-    file cufflinks_ok from cufflinksTranscripts_pp_gtfB.toList()
+    file cufflinks_ok from cufflinksTranscripts_postprocess.toList()
 
     output:
     file "CUFFMERGE" into cuffmergeTranscripts
@@ -213,8 +219,12 @@ process cuffmerge {
     // Cuffmerge
     //
     """
-    mkdir CUFFMERGE
-    cuffmerge -o CUFFMERGE -g ${annotationFile}  -s ${genomeFile} -p ${params.threads} ${gtf_filenames}
+        mkdir CUFFMERGE
+        cuffmerge -o CUFFMERGE /
+                  -g ${annotationFile}  /
+                  -s ${genomeFile} /
+                  -p ${params.threads} 
+                    ${gtf_filenames}
     """
 }
 
@@ -234,14 +244,14 @@ process FEELnc_filter{
     //
 
     """
-    mkdir FEELnc_filter
-
-    FEELnc_filter.pl --infile ${cuffmergeDir}/merged.gtf \
-                     --mRNAfile ${annotationFile} \
-                     --biotype transcript_biotype=protein_coding \
-                     --monoex -1 \
-                     --proc 10 \
-                     > FEELnc_filter/merged_filtered.gtf
+        mkdir FEELnc_filter
+ 
+        FEELnc_filter.pl --infile ${cuffmergeDir}/merged.gtf \
+                         --mRNAfile ${annotationFile} \
+                         --biotype transcript_biotype=protein_coding \
+                         --monoex -1 \
+                         --proc 10 \
+                         > FEELnc_filter/merged_filtered.gtf
     """
 
 }
@@ -262,17 +272,17 @@ process FEELnc_codpot{
     //
 
     """
-    mkdir intergenic_0.99_Mode
+        mkdir intergenic_0.99_Mode
 
-    FEELnc_codpot.pl  --infile=${FEELnc_filter}/merged_filtered.gtf \
-                      --mRNAfile=${annotationFile} \
-                      --biotype=transcript_biotype=protein_coding \
-                      --genome=${genomeFile} \
-                      --numtx=10000,10000 \
-                      --outdir=intergenic_0.99_Mode \
-                      --spethres=0.99,0.99 \
-                      --proc=10 \
-                      --keeptmp
+        FEELnc_codpot.pl  --infile=${FEELnc_filter}/merged_filtered.gtf \
+                          --mRNAfile=${annotationFile} \
+                          --biotype=transcript_biotype=protein_coding \
+                          --genome=${genomeFile} \
+                          --numtx=10000,10000 \
+                          --outdir=intergenic_0.99_Mode \
+                          --spethres=0.99,0.99 \
+                          --proc=10 \
+                          --keeptmp
     """
 
 }
@@ -292,9 +302,9 @@ process FEELnc_classifier {
     //
 
     """
-    FEELnc_classifier.pl  -i ${intergenic}/merged_filtered.gtf.lncRNA.gtf  \
-                          -a ${annotationFile} \
-                          > lncRNA_classes.txt
+        FEELnc_classifier.pl  -i ${intergenic}/merged_filtered.gtf.lncRNA.gtf  \
+                              -a ${annotationFile} \
+                              > lncRNA_classes.txt
     """
 
 }
