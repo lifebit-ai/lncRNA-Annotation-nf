@@ -33,7 +33,6 @@ params.genome        ="$baseDir/tutorial/genome/NEW_susScr102vega.fa"
 params.annotation    ="$baseDir/tutorial/annotation/NEW_ensembl.83.vega.62.gtf"
 params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq.gz"
 params.overhang      ='99'
-params.threads       ='1'
 params.output        ="results/"
 
 
@@ -42,9 +41,7 @@ log.info "====================================="
 log.info "name                   : ${params.name}"
 log.info "genome                 : ${params.genome}"
 log.info "annotation             : ${params.annotation}"
-log.info "reads                  : ${params.reads}"
 log.info "STAR overhang          : ${params.overhang}"
-log.info "threads/CPUs           : ${params.threads}"
 log.info "output                 : ${params.output}"
 log.info "\n"
 
@@ -95,7 +92,7 @@ process index {
     //
     """
         mkdir STARgenome
-        STAR --runThreadN ${params.threads} \
+        STAR --runThreadN ${task.cpus} \
              --runMode genomeGenerate \
              --genomeDir STARgenome \
              --genomeFastaFiles ${genomeFile} \
@@ -130,7 +127,7 @@ process mapping {
              --outSAMtype BAM SortedByCoordinate \
              --outSAMattrIHstart 0 \
              --outFilterIntronMotifs RemoveNoncanonical \
-             --runThreadN ${params.threads} \
+             --runThreadN ${task.cpus} \
              --quantMode TranscriptomeSAM \
              --outWigType bedGraph \
              --outWigStrand Stranded \
@@ -161,7 +158,7 @@ process cufflinks {
     //
     """
         mkdir CUFF_${name}
-        cufflinks -p ${params.threads} \
+        cufflinks -p ${task.cpus} \
                   -g ${annotationFile} \
                   -o CUFF_${name} \
                   --overlap-radius 5 \
@@ -223,8 +220,8 @@ process cuffmerge {
         cuffmerge -o CUFFMERGE /
                   -g ${annotationFile}  /
                   -s ${genomeFile} /
-                  -p ${params.threads} 
-                    ${gtf_filenames}
+                  -p ${task.cpus} 
+                     ${gtf_filenames}
     """
 }
 
@@ -250,7 +247,7 @@ process FEELnc_filter{
                          --mRNAfile ${annotationFile} \
                          --biotype transcript_biotype=protein_coding \
                          --monoex -1 \
-                         --proc 10 \
+                         --proc ${task.cpus} \
                          > FEELnc_filter/merged_filtered.gtf
     """
 
@@ -281,7 +278,7 @@ process FEELnc_codpot{
                           --numtx=10000,10000 \
                           --outdir=intergenic_0.99_Mode \
                           --spethres=0.99,0.99 \
-                          --proc=10 \
+                          --proc=${task.cpus} \
                           --keeptmp
     """
 
