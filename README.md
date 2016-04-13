@@ -3,6 +3,7 @@
 A Nextflow implementation of a lncRNA Annotation Pipeline
 
 ![CircleCI status](https://circleci.com/gh/skptic/lncRNA-Annotation-nf.png?style=shield)
+[![nextflow](https://img.shields.io/badge/nextflow-%E2%89%A50.17.3-brightgreen.svg)](http://nextflow.io)
 
 ## Quick start 
 
