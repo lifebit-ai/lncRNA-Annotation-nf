@@ -175,7 +175,7 @@ process cufflinks_postprocess {
     file genomeLength from genomeLengths.first()
 
     output:
-    file "${name}_cufflinks_ok.gtf" into cufflinksTranscripts_postprocess
+    file "${name}_cufflinks_ok.gtf" into cufflinksTranscripts_postprocess, cufflinksTranscripts_postprocess_fn
 
     script:
     //
@@ -195,7 +195,8 @@ process cufflinks_postprocess {
 //
 // Create a file 'gtf_filenames' containing the filenames of each post processes cufflinks gtf
 //
-cufflinksTranscripts_postprocess
+
+cufflinksTranscripts_postprocess_fn
   .collectFile () { file ->  ['gtf_filenames.txt', file.name + '\n' ] }
   .set { GTFfilenames }
 
@@ -217,10 +218,10 @@ process cuffmerge {
     //
     """
         mkdir CUFFMERGE
-        cuffmerge -o CUFFMERGE /
-                  -g ${annotationFile}  /
-                  -s ${genomeFile} /
-                  -p ${task.cpus} 
+        cuffmerge -o CUFFMERGE \
+                  -g ${annotationFile}  \
+                  -s ${genomeFile} \
+                  -p ${task.cpus} \
                      ${gtf_filenames}
     """
 }
