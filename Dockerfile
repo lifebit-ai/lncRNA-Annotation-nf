@@ -4,7 +4,7 @@
 ############################################################
 
 # Set the base image to Ubuntu
-FROM debian::jessie
+FROM debian
 
 # File Author / Maintainer
 MAINTAINER Evan Floden <evanfloden@gmail.com>
@@ -14,6 +14,7 @@ RUN apt-get update
 
 # Install compiler and perl stuff
 RUN apt-get install --yes --no-install-recommends \
+ wget \
  ed \
  less \
  locales \
@@ -31,7 +32,7 @@ RUN apt-get install --yes --no-install-recommends \
 RUN apt-get install -y cpanminus
 
 # Install perl modules
-RUN cpanm CPAN::Meta \
+RUN cpanm --force CPAN::Meta \
  readline \ 
  Term::ReadKey \
  YAML \
@@ -52,16 +53,17 @@ RUN echo "deb http://cran.rstudio.com/bin/linux/debian jessie-cran3/" >>  /etc/a
  apt-get -y install r-base
 
 # Install R libraries
-RUN R -e 'install.packages('ROCR'); install.packages('randomForest')'
+RUN R -e 'install.packages("ROCR", repos="http://cloud.r-project.org/"); install.packages("randomForest",repos="http://cloud.r-project.org/")'
 
 # Install Star Mapper
-RUN wget https://github.com/alexdobin/STAR/archive/STAR_2.5.2a.tar.gz &&\
- tar -xzf STAR_2.5.2a.tar.gz &&\
- cd STAR_2.5.2a &&\
+RUN wget https://github.com/alexdobin/STAR/archive/2.5.2a.tar.gz &&\
+ tar -xzf 2.5.2a.tar.gz && \
+ cd STAR-2.5.2a &&\
  make STAR
 
 # Install FEELnc
-RUN git clone git@github.com:tderrien/FEELnc.git &&\
- cd FEELnc &&\
+RUN wget https://github.com/tderrien/FEELnc/archive/a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\
+ unzip a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\ 
+ cd FEELnc-a6146996e06f8a206a0ae6fd59f8ca635c7d9467 &&\
  export FEELNCPATH=${PWD} &&\
- export PERL5LIB=$PERL5LIB:${FEELNCPATH}/lib/ &&\
+ export PERL5LIB=$PERL5LIB:${FEELNCPATH}/lib/
