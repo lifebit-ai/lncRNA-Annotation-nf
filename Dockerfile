@@ -4,7 +4,7 @@
 ############################################################
 
 # Set the base image to Ubuntu
-FROM debian
+FROM debian:jessie
 
 # File Author / Maintainer
 MAINTAINER Evan Floden <evanfloden@gmail.com>
@@ -25,6 +25,7 @@ RUN apt-get install --yes --no-install-recommends \
  gcc-multilib \
  apt-utils \
  perl \
+ python \
  expat \
  libexpat-dev 
 
