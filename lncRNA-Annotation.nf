@@ -40,6 +40,7 @@ log.info "lncRNA Annotation - N F  ~  version 0.1"
 log.info "====================================="
 log.info "name                   : ${params.name}"
 log.info "genome                 : ${params.genome}"
+log.info "reads                  : ${params.reads}"
 log.info "annotation             : ${params.annotation}"
 log.info "STAR overhang          : ${params.overhang}"
 log.info "output                 : ${params.output}"
@@ -84,7 +85,7 @@ process index {
     
     output:
     file "STARgenome" into STARgenomeIndex
-    file 'genome.length' into genomeLengths    
+    file "genomeLength.txt" into genomeLengths    
 
     script:
     //
@@ -100,7 +101,8 @@ process index {
              --sjdbOverhang ${params.overhang} \
              --outFileNamePrefix STARgenome
 
-        fastalength ${genomeFile} > 'genome.length'
+        fastalength ${genomeFile} > 'genomeLength.txt'
+
     """
 }
 
@@ -164,7 +166,6 @@ process cufflinks {
                   --overlap-radius 5 \
                   --library-type fr-firststrand \
                   ${STAR_alignment}/${name}Aligned.sortedByCoord.out.bam
-
     """
 }
 
@@ -172,7 +173,7 @@ process cufflinks_postprocess {
 
     input:
     set val(name), file(CUFFLINKS_transcripts) from cufflinksTranscripts_to_pp
-    file genomeLength from genomeLengths.first()
+    file (genomeLength) from genomeLengths.first()
 
     output:
     file "${name}_cufflinks_ok.gtf" into cufflinksTranscripts_postprocess, cufflinksTranscripts_postprocess_fn

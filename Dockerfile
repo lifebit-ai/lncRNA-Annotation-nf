@@ -34,6 +34,7 @@ RUN apt-get install -y cpanminus
 
 # Install perl modules
 RUN cpanm --force CPAN::Meta \
+ XML::Parser \
  readline \ 
  Term::ReadKey \
  YAML \
@@ -46,6 +47,64 @@ RUN cpanm --force CPAN::Meta \
  Statistics::Lite \
  Statistics::Descriptive \
  Parallel::ForkManager
+
+RUN apt-get install --yes \
+ libarchive-zip-perl
+
+# Install related DB modules
+RUN apt-get install --yes \
+ libdbd-mysql \
+ libdbd-mysql-perl \
+ libdbd-pgsql
+
+# Install GD
+RUN apt-get remove --yes libgd-gd2-perl
+
+RUN apt-get install --yes \
+ libgd2-noxpm-dev
+
+RUN cpanm GD \
+ GD::Graph \
+ GD::Graph::smoothlines 
+
+
+# Install BioPerl dependancies, mostly from cpan
+RUN apt-get install --yes \
+ libpixman-1-0 \
+ libpixman-1-dev \
+ graphviz \
+ libxml-parser-perl \
+ libsoap-lite-perl 
+
+RUN cpanm Test::Most \
+ Algorithm::Munkres \
+ Array::Compare Clone \
+ PostScript::TextBlock \
+ SVG \
+ SVG::Graph \
+ Set::Scalar \
+ Sort::Naturally \
+ Graph \
+ GraphViz \
+ HTML::TableExtract \
+ Convert::Binary::C \
+ Math::Random \
+ Error \
+ Spreadsheet::ParseExcel \
+ XML::Parser::PerlSAX \
+ XML::SAX::Writer \
+ XML::Twig XML::Writer
+
+RUN apt-get install -y \
+ libxml-libxml-perl \
+ libxml-dom-xpath-perl \
+ libxml-libxml-simple-perl \
+ libxml-dom-perl
+
+# Install BioPerl last built
+RUN cpanm -v  \
+ CJFIELDS/BioPerl-1.6.924.tar.gz 
+
 
 # Install R
 RUN echo "deb http://cran.rstudio.com/bin/linux/debian jessie-cran3/" >>  /etc/apt/sources.list &&\
@@ -65,6 +124,7 @@ RUN wget https://github.com/alexdobin/STAR/archive/2.5.2a.tar.gz &&\
 # Install FEELnc
 RUN wget https://github.com/tderrien/FEELnc/archive/a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\
  unzip a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\ 
- cd FEELnc-a6146996e06f8a206a0ae6fd59f8ca635c7d9467 &&\
- export FEELNCPATH=${PWD} &&\
- export PERL5LIB=$PERL5LIB:${FEELNCPATH}/lib/
+ mv FEELnc-a6146996e06f8a206a0ae6fd59f8ca635c7d9467 FEELnc
+
+ENV FEELNCPATH FEELnc
+ENV PERL5LIB \{$PERL5LIB}:\${FEELNCPATH}/lib/
