@@ -29,8 +29,8 @@
 
 
 params.name          ="lncRNA_Pig_RNA-Seq"
-params.genome        ="$baseDir/tutorial/genome/NEW_susScr102vega.fa"
-params.annotation    ="$baseDir/tutorial/annotation/NEW_ensembl.83.vega.62.gtf"
+params.genome        ="$baseDir/tutorial/genome/genome_test.fa"
+params.annotation    ="$baseDir/tutorial/annotation/annotation_test.gtf"
 params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq.gz"
 params.overhang      ='99'
 params.output        ="results/"

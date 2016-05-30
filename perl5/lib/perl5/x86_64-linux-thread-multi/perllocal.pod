@@ -1,0 +1,660 @@
+=head2 Thu May 26 23:50:01 2016: C<Module> L<Test::Simple|Test::Simple>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.302019>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Thu May 26 23:55:51 2016: C<Module> L<Test::Simple|Test::Simple>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.302019>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Thu May 26 23:56:49 2016: C<Module> L<Parallel::ForkManager|Parallel::ForkManager>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.18>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:01:08 2016: C<Module> L<Test::Harness|Test::Harness>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 3.36>
+
+=item *
+
+C<EXE_FILES: bin/prove>
+
+=back
+
+=head2 Fri May 27 09:01:12 2016: C<Module> L<Test::Exception|Test::Exception>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.43>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:01:43 2016: C<Module> L<Test::Simple|Test::Simple>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.302019>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:01:46 2016: C<Module> L<Devel::StackTrace|Devel::StackTrace>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.01>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:01:48 2016: C<Module> L<Class::Data::Inheritable|Class::Data::Inheritable>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.08>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:02:00 2016: C<Module> L<Carp|Carp>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.38>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:02:09 2016: C<Module> L<Test::Warn|Test::Warn>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.30>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:03:35 2016: C<Module> L<Capture::Tiny|Capture::Tiny>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.40>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:09:55 2016: C<Module> L<Data::Dumper|Data::Dumper>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.154>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:10:03 2016: C<Module> L<Algorithm::Diff|Algorithm::Diff>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.1903>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:18:32 2016: C<Module> L<Test::Harness|Test::Harness>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 3.36>
+
+=item *
+
+C<EXE_FILES: bin/prove>
+
+=back
+
+=head2 Fri May 27 09:18:34 2016: C<Module> L<Test::Exception|Test::Exception>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.43>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:19:06 2016: C<Module> L<Test::Simple|Test::Simple>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.302019>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:19:08 2016: C<Module> L<Devel::StackTrace|Devel::StackTrace>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.01>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:19:10 2016: C<Module> L<Class::Data::Inheritable|Class::Data::Inheritable>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.08>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:19:14 2016: C<Module> L<Exception::Class|Exception::Class>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.40>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:19:19 2016: C<Module> L<Carp|Carp>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.38>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:19:24 2016: C<Module> L<Test::Warn|Test::Warn>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.30>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:20:58 2016: C<Module> L<Capture::Tiny|Capture::Tiny>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.40>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:21:01 2016: C<Module> L<Test::Simple|Test::Simple>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.302019>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:21:05 2016: C<Module> L<Data::Dumper|Data::Dumper>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.154>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:21:08 2016: C<Module> L<Algorithm::Diff|Algorithm::Diff>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.1903>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:21:10 2016: C<Module> L<Text::Diff|Text::Diff>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.44>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:21:15 2016: C<Module> L<Test::Simple|Test::Simple>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.302019>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:21:19 2016: C<Module> L<Test::Deep|Test::Deep>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.120>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:21:22 2016: C<Module> L<Test::Most|Test::Most>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.34>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Fri May 27 09:48:01 2016: C<Module> L<DB_File|DB_File>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/lncRNA-Annotation-nf/perl5/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.838>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+

@@ -1,0 +1,22 @@
+=head2 Fri Apr 29 17:47:17 2016: C<Module> L<DB_File|DB_File>
+
+=over 4
+
+=item *
+
+C<installed into: /users/cn/efloden/projects/pig_lncrna/perl//lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.835>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
