@@ -122,9 +122,10 @@ RUN wget https://github.com/alexdobin/STAR/archive/2.5.2a.tar.gz &&\
  make STAR
 
 # Install FEELnc
+WORKDIR /home/
 RUN wget https://github.com/tderrien/FEELnc/archive/a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\
  unzip a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\ 
  mv FEELnc-a6146996e06f8a206a0ae6fd59f8ca635c7d9467 FEELnc
 
-ENV FEELNCPATH FEELnc
-ENV PERL5LIB \{$PERL5LIB}:\${FEELNCPATH}/lib/
+ENV FEELNCPATH /home/FEELnc
+ENV PERL5LIB $PERL5LIB:${FEELNCPATH}/lib/
