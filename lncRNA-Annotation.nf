@@ -31,7 +31,7 @@
 params.name          ="lncRNA_Pig_RNA-Seq"
 params.genome        ="$baseDir/tutorial/genome/genome_test.fa"
 params.annotation    ="$baseDir/tutorial/annotation/annotation_test.gtf"
-params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq.gz"
+params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq"
 params.overhang      ='99'
 params.output        ="results/"
 
@@ -53,7 +53,6 @@ log.info "\n"
 
 genomeFile             = file(params.genome)
 annotationFile         = file(params.annotation) 
-
 
 /*
  * validate input files/
@@ -241,6 +240,7 @@ process FEELnc_filter{
     //
     // FEELnc Filter Step
     //
+ 
 
     """
         mkdir FEELnc_filter
@@ -270,18 +270,20 @@ process FEELnc_codpot{
     // FEELnc Coding Potential
     //
 
+
     """
         mkdir intergenic_0.99_Mode
 
         FEELnc_codpot.pl  --infile=${FEELnc_filter}/merged_filtered.gtf \
                           --mRNAfile=${annotationFile} \
-                          --biotype=transcript_biotype=protein_coding \
                           --genome=${genomeFile} \
+                          --biotype=transcript_biotype=protein_coding
                           --numtx=10000,10000 \
                           --outdir=intergenic_0.99_Mode \
                           --spethres=0.99,0.99 \
                           --proc=${task.cpus} \
                           --keeptmp
+                          
     """
 
 }
