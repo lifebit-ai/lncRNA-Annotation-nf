@@ -29,8 +29,8 @@
 
 
 params.name          ="lncRNA_Pig_RNA-Seq"
-params.genome        ="$baseDir/tutorial/genome/genome_test.fa"
-params.annotation    ="$baseDir/tutorial/annotation/annotation_test.gtf"
+params.genome        ="$baseDir/tutorial/genome/genome_chr38.fa"
+params.annotation    ="$baseDir/tutorial/annotation/annotation_chr38.gtf"
 params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq"
 params.overhang      ='99'
 params.output        ="results/"
@@ -230,7 +230,6 @@ process FEELnc_filter{
 
     input:
     file annotationFile
-    file genomeFile
     file cuffmergeDir from cuffmergeTranscripts
 
     output:
@@ -246,11 +245,13 @@ process FEELnc_filter{
         mkdir FEELnc_filter
  
         FEELnc_filter.pl --infile ${cuffmergeDir}/merged.gtf \
+                         --size=10 \
                          --mRNAfile ${annotationFile} \
-                         --biotype transcript_biotype=protein_coding \
-                         --monoex -1 \
-                         --proc ${task.cpus} \
+                         --monoex=1 \
+                         --biex=5 \
+                         --outlog=file.log \
                          > FEELnc_filter/merged_filtered.gtf
+    
     """
 
 }
@@ -277,8 +278,7 @@ process FEELnc_codpot{
         FEELnc_codpot.pl  --infile=${FEELnc_filter}/merged_filtered.gtf \
                           --mRNAfile=${annotationFile} \
                           --genome=${genomeFile} \
-                          --biotype=transcript_biotype=protein_coding
-                          --numtx=10000,10000 \
+                          --numtx=1000,1000 \
                           --outdir=intergenic_0.99_Mode \
                           --spethres=0.99,0.99 \
                           --proc=${task.cpus} \
