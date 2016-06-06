@@ -245,11 +245,10 @@ process FEELnc_filter{
         mkdir FEELnc_filter
  
         FEELnc_filter.pl --infile ${cuffmergeDir}/merged.gtf \
-                         --size=10 \
                          --mRNAfile ${annotationFile} \
+                         --size=25 \
                          --monoex=1 \
-                         --biex=5 \
-                         --outlog=file.log \
+                         --minfrac_over=1.0 \
                          > FEELnc_filter/merged_filtered.gtf
     
     """
@@ -278,7 +277,7 @@ process FEELnc_codpot{
         FEELnc_codpot.pl  --infile=${FEELnc_filter}/merged_filtered.gtf \
                           --mRNAfile=${annotationFile} \
                           --genome=${genomeFile} \
-                          --numtx=1000,1000 \
+                          --numtx=100,100 \
                           --outdir=intergenic_0.99_Mode \
                           --spethres=0.99,0.99 \
                           --proc=${task.cpus} \
