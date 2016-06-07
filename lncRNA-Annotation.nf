@@ -246,8 +246,7 @@ process FEELnc_filter{
  
         FEELnc_filter.pl --infile ${cuffmergeDir}/merged.gtf \
                          --mRNAfile ${annotationFile} \
-                         --size=25 \
-                         --monoex=1 \
+                         --size=100 \
                          --minfrac_over=1.0 \
                          > FEELnc_filter/merged_filtered.gtf
     
