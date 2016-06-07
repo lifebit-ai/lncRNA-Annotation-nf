@@ -118,15 +118,24 @@ RUN R -e 'install.packages("ROCR", repos="http://cloud.r-project.org/"); install
 # Install Star Mapper
 RUN wget https://github.com/alexdobin/STAR/archive/2.5.2a.tar.gz &&\
  tar -xzf 2.5.2a.tar.gz && \
+ rm 2.5.2a.tar.gz &&\
  cd STAR-2.5.2a &&\
  make STAR
 
 # Install FEELnc
 RUN wget https://github.com/tderrien/FEELnc/archive/a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\
  unzip a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\ 
- mv FEELnc-a6146996e06f8a206a0ae6fd59f8ca635c7d9467 /FEELnc
+ mv FEELnc-a6146996e06f8a206a0ae6fd59f8ca635c7d9467 /FEELnc &&\
+ rm a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip
+
 
 ENV FEELNCPATH /FEELnc
 ENV PERL5LIB $PERL5LIB:${FEELNCPATH}/lib/
 
 RUN rm -rf /root/.cpanm/work/
+
+# Install Cufflinks/Cuffmerge 
+RUN wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz &&\
+ tar zvxf cufflinks-2.2.1.Linux_x86_64.tar.gz 
+
+ENV PATH $PATH:/FEELnc/bin/LINUX:/FEELnc/utils:/FEELnc/scripts/:/cufflinks-2.2.1.Linux_x86_64:/STAR-2.5.2a/bin/Linux_x86_64/
