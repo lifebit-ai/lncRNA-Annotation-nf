@@ -7,17 +7,16 @@ A Nextflow implementation of a lncRNA Annotation Pipeline
 
 ## Quick start 
 
-Make sure you have all the required dependencies listed in the last section.
+Make sure you have all the required dependencies listed in the last section or run with Docker.
 
 Install the Nextflow runtime by running the following command:
 
     $ curl -fsSL get.nextflow.io | bash
 
 
-When done, you can launch the pipeline execution by entering the command shown below:
+When done, you can launch the pipeline execution with Docker by entering the command shown below:
 
-    $ nextflow run cbcrg/lncRNA-Annotation-nf
-    
+    $ nextflow run skptic/lncRNA-Annotation-nf -profile test
 
 By default the pipeline is executed against the provided example dataset. 
 Check the *Pipeline parameters*  section below to see how enter your data on the program 
@@ -141,7 +140,7 @@ Dependencies
 ------------
 
  * Java 7+ 
- * Nextflow (0.16.4 or higher)
+ * Nextflow (0.17.4 or higher)
  * STAR - https://github.com/alexdobin/STAR
  * Cufflinks - http://cole-trapnell-lab.github.io/cufflinks
  * FEELnc - https://github.com/tderrien/FEELnc

@@ -3,19 +3,14 @@ machine:
     version: openjdk7
   services:
     - docker
-    
 
 dependencies:
   override:
 
 test:
   override:
-
-
-
-
     - curl -fsSL get.nextflow.io | bash
-    - ./nextflow run . -with-docker
+    - ./nextflow run . -profile test
 
 
 
