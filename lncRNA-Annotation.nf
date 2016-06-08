@@ -33,6 +33,7 @@ params.genome        ="$baseDir/tutorial/genome/genome_chr38.fa"
 params.annotation    ="$baseDir/tutorial/annotation/annotation_chr38.gtf"
 params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq"
 params.overhang      ='99'
+params.feelnc_opts   = "--biotype transcript_biotype=protein_coding \\ --monoex -1 \\"
 params.output        ="results/"
 
 
@@ -53,6 +54,8 @@ log.info "\n"
 
 genomeFile             = file(params.genome)
 annotationFile         = file(params.annotation) 
+
+FEELnc_filter_options=params.feelnc_opts
 
 /*
  * validate input files/
@@ -246,8 +249,8 @@ process FEELnc_filter{
  
         FEELnc_filter.pl --infile ${cuffmergeDir}/merged.gtf \
                          --mRNAfile ${annotationFile} \
-                         --size=100 \
-                         --minfrac_over=1.0 \
+                         ${FEELnc_filter_options} \
+                         --proc ${task.cpus} \
                          > FEELnc_filter/merged_filtered.gtf
     
     """
@@ -276,7 +279,7 @@ process FEELnc_codpot{
         FEELnc_codpot.pl  --infile=${FEELnc_filter}/merged_filtered.gtf \
                           --mRNAfile=${annotationFile} \
                           --genome=${genomeFile} \
-                          --numtx=100,100 \
+                          --numtx=10000,10000 \
                           --outdir=intergenic_0.99_Mode \
                           --spethres=0.99,0.99 \
                           --proc=${task.cpus} \
