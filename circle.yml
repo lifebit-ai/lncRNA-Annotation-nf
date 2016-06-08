@@ -1,4 +1,6 @@
 machine:
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
   java:
     version: openjdk7
   services:
@@ -9,6 +11,7 @@ dependencies:
 
 test:
   override:
+    - docker pull cbcrg/lncrna_annotation
     - curl -fsSL get.nextflow.io | bash
     - ./nextflow run . -profile test
 
