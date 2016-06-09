@@ -12,6 +12,7 @@ dependencies:
 test:
   override:
     - docker pull cbcrg/lncrna_annotation
+    - docker pull cbcrg/lncrna_annotation@sha256:97c2af4ff4c9c65b81db48fadc87e501c1c81f9138ed8269cb6fcd3042714766
     - curl -fsSL get.nextflow.io | bash
     - ./nextflow run . -profile test
 
