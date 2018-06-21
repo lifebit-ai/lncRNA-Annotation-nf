@@ -68,8 +68,8 @@ FEELnc_filter_options=params.feelnc_opts
  * validate input files/
  */
 
-if( !annotationFile.exists() ) exit 1, "Missing annotation file: ${annotationFile}"
-if( !genomeFile.exists() ) exit 1, "Missing genome directory: ${genomeFile}"
+//if( !annotationFile.exists() ) exit 1, "Missing annotation file: ${annotationFile}"
+//if( !genomeFile.exists() ) exit 1, "Missing genome directory: ${genomeFile}"
 
 
 /*
