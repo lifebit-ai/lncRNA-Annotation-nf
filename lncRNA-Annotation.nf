@@ -31,7 +31,14 @@
 params.name          ="lncRNA_Pig_RNA-Seq"
 params.genome        ="$baseDir/tutorial/genome/genome_chr38.fa"
 params.annotation    ="$baseDir/tutorial/annotation/annotation_chr38.gtf"
-params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq"
+
+//params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq"
+params.reads="$baseDir/tutorial/reads/"
+params.readsExtension="fastq"
+allReads="${params.reads}/*_{1,2}.${params.readsExtension}"
+
+
+
 params.overhang      ='99'
 params.feelnc_opts   = "--biotype transcript_biotype=protein_coding \\ --monoex -1 \\"
 params.output        ="results/"
@@ -70,7 +77,7 @@ if( !genomeFile.exists() ) exit 1, "Missing genome directory: ${genomeFile}"
  */
  
 Channel
-    .fromPath( params.reads )
+    .fromPath( allReads )
     .ifEmpty { error "Cannot find any reads matching: ${params.reads}" }
     .map { path -> 
        def prefix = readPrefix(path, params.reads)
