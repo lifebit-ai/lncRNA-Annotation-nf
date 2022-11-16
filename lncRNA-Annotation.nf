@@ -35,7 +35,7 @@ params.annotation    ="$baseDir/tutorial/annotation/annotation_chr38.gtf"
 //params.reads         ="$baseDir/tutorial/reads/*_{1,2}.fastq"
 params.reads="$baseDir/tutorial/reads/"
 params.readsExtension="fastq"
-allReads="${params.reads}/*(_|R){1,2}.${params.readsExtension}"
+allReads="${params.reads}/*R{1,2}.${params.readsExtension}"
 
 
 
